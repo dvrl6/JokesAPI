@@ -60,3 +60,9 @@ DELETE http://localhost:3005/api/deleteJoke/:id
 5. GET. Obtener un chiste por ID.
 
 GET http://localhost:3005/api/getJokeById/:id
+
+6. GET. Obtener cantidad de chistes por categoria.
+
+
+7. GET. Obtener todos los chistes que hay por puntaje.
+
