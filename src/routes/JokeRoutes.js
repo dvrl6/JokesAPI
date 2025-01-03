@@ -13,4 +13,10 @@ router.post('/createJoke', createJoke);
 // Define la ruta para actualizar un chiste existente
 router.put('/updateJoke/:id', updateJoke);
 
+// Define la ruta para eliminar un chiste existente por id
+router.delete('/deleteJoke/:id', deleteJokeById);
+
+// Define la ruta para obtener un chiste existente por id
+router.get('/getJoke/:id', getJokeById);
+
 export default router;
