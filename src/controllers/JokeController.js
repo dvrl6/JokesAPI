@@ -122,3 +122,58 @@ export const updateJoke = async (req, res) => {
         return res.status(500).json({ message: 'Error al actualizar el chiste en la base de datos', error: error.message });
     }
 };
+
+export const deleteJokeById = async(req,res)=>{
+
+    const { id } = req.query;
+    //Se verifica si el ID correspondiente es valido
+    if (!id) {
+        return res.status(400).json({ error: 'Id no Válido' });
+    }
+    try{
+        // Se intenta eliminar el chiste por el ID proporcionado por el usuario
+        const deletedJoke = await Joke.findByIdAndDelete(id);
+
+        if (!deletedJoke) {
+            //Se envia el mensaje en caso que el chiste no haya sido encontrado para ser eliminado
+            return res.status(400).json({ error: 'Chiste no encontrado' });
+        }
+
+        //Se muestra el mensaje en caso que se haya podido eliminar el Chiste
+        return res.status(200).json({ message: 'Chiste eliminado con éxito', joke: deletedJoke });
+
+    }catch(error){
+        //Fallo inesperado al no poder eliminar el chiste
+        console.error(error);
+        return res.status(500).json({ error: 'Error al eliminar el chiste' });
+
+    }
+};
+
+export const getJokeById =   async (req,res)=>{
+
+    const { id } = req.query;
+    //Se verifica si el ID correspondiente es valido
+    if (!id) {
+        return res.status(400).json({ error: 'Id no Válido' });
+    }
+
+
+    try {
+        //Se prueba encontrar el chiste por el ID proporcionado por el usuario
+        const joke = await Joke.findById(id);
+
+        if (!joke) {
+            //Se envia un mensaje de error en caso que no se consiga el chiste proporcionado por el usuario
+            return res.status(400).json({ error: 'Chiste no encontrado' });
+        }
+
+        //Se muestra el chiste seleccionado por el ID proporcionado por el usuario
+        return res.status(200).json({ joke: joke.text }); 
+
+    } catch (error) {
+        //Mensaje de error inesperado al no poder conseguir el id dado por el usuario
+        console.error(error);
+        return res.status(500).json({ error: 'Error al obtener el chiste' });
+    }
+};
