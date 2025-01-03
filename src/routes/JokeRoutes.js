@@ -1,5 +1,5 @@
 import express from 'express';
-import { getJoke, createJoke, updateJoke } from '../controllers/JokeController.js';
+import { getJoke, createJoke, updateJoke, deleteJokeById, getJokeById} from '../controllers/JokeController.js';
 
 // Crea un enrutador de Express
 const router = express.Router();
@@ -17,6 +17,6 @@ router.put('/updateJoke/:id', updateJoke);
 router.delete('/deleteJoke/:id', deleteJokeById);
 
 // Define la ruta para obtener un chiste existente por id
-router.get('/getJoke/:id', getJokeById);
+router.get('/getJokeById/:id', getJokeById);
 
 export default router;

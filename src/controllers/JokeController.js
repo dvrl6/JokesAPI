@@ -125,7 +125,7 @@ export const updateJoke = async (req, res) => {
 
 export const deleteJokeById = async(req,res)=>{
 
-    const { id } = req.query;
+    const { id } = req.params;
     //Se verifica si el ID correspondiente es valido
     if (!id) {
         return res.status(400).json({ error: 'Id no Válido' });
@@ -152,7 +152,7 @@ export const deleteJokeById = async(req,res)=>{
 
 export const getJokeById =   async (req,res)=>{
 
-    const { id } = req.query;
+    const { id } = req.params;
     //Se verifica si el ID correspondiente es valido
     if (!id) {
         return res.status(400).json({ error: 'Id no Válido' });

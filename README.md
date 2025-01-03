@@ -53,3 +53,10 @@ http://localhost:3005/api/updateJoke/677740b3bbde196c29c67b55
     "category": "Chistoso"
 }
 
+4. DELETE. Borrar un chiste.
+
+DELETE http://localhost:3005/api/deleteJoke/:id
+
+5. GET. Obtener un chiste por ID.
+
+GET http://localhost:3005/api/getJokeById/:id
