@@ -5,7 +5,7 @@
   "description": "Proyecto de Topicos Especiales de Programacion. Diana Rodriguez, Abraham Carranza y Andrea Torres. Seccion 16343",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +20,8 @@
   "devDependencies": {
     "chai": "^5.1.2",
     "chai-http": "^5.1.1",
-    "mocha": "^11.0.1"
+    "jest": "^29.7.0",
+    "mocha": "^11.0.1",
+    "supertest": "^7.0.0"
   }
 }

@@ -1,26 +1,21 @@
-/*import mongoose from 'mongoose';
 
-const jokeSchema = new mongoose.Schema({
-    text: { type: String, required: true },
-    author: { type: String, default: "Se perdió en el Ávila como Led" },
-    rating: { type: Number, required: true, min: 1, max: 10 },
-    category: { type: String, required: true, enum: ['Dad joke', 'Humor Negro', 'Chistoso', 'Malo'] }
-});
-
-const Joke = mongoose.model('Joke', jokeSchema);
-export {Joke};
-*/
 import mongoose from 'mongoose';
 
+//Definición del esquema para el modelo de Jokes / Chistes
 const jokeSchema = new mongoose.Schema({
-    text: { type: String, required: true }, // Texto del chiste
-    author: { type: String, default: "Se perdió en el Ávila como Led" }, // Nombre del autor (opcional)
-    rating: { type: Number, required: true, min: 1, max: 10 }, // Puntaje del chiste
+    text: { type: String, required: true }, 
+    author: { type: String, default: "Se perdió en el Ávila como Led" }, 
+    rating: { type: Number, required: true, min: 1, max: 10 }, 
     category: { 
         type: String, 
         required: true, 
-        enum: ['Dad joke', 'Humor Negro', 'Chistoso', 'Malo'] // Categorías permitidas
+        enum: ['Dad joke', 'Humor Negro', 'Chistoso', 'Malo'] 
     }
-}, { timestamps: true }); // Agrega createdAt y updatedAt automáticamente
+});
 
+//Creacion del modelo a partir del esquema definido anteriormente
 export const Joke = mongoose.model('Joke', jokeSchema);
+
+
+//Un esquema define la estructura de los documentos dentro de una colección
+
