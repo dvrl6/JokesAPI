@@ -37,7 +37,12 @@ const connectDB = () => {
         });
 };
 
-connectDB();
+if (process.env.NODE_ENV !== 'test') {
+    connectDB();
+}
+
+
+//connectDB();
 
 // Configura las rutas bajo el prefijo '/api'
 app.use('/api', jokeRoutes); 

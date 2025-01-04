@@ -1,13 +1,10 @@
 import axios from 'axios'; //para realizar solicitudes HTTP
+import mongoose from 'mongoose';
 import { Joke } from '../models/Joke.js'; //importa el modelo para interactuar con la BD
 
 //Función para obtener un chiste basado en un parámetro de consulta
 export const getJoke = async (req, res) => {
    const { param } = req.query; //extrae el parametro desde la solicitud
-
-    if (!param) {
-        return res.status(400).json({ error: 'Parámetro no válido' });
-    }
 
     try {
         if (param === 'Chuck') {
@@ -32,7 +29,7 @@ export const getJoke = async (req, res) => {
             const randomJoke = jokes[Math.floor(Math.random() * jokes.length)];
             return res.status(200).json({ joke: randomJoke.text }); 
         } else {
-            return res.status(400).json({ error: 'Parámetro no válido' });
+            return res.status(400).json({ error: 'Parámetro no válido. Intente con Chuck, Dad o Propio'});
         }
     } catch (error) {
         console.error(error);
@@ -70,7 +67,11 @@ export const createJoke = async (req, res) => {
         const savedJoke = await newJoke.save();
 
         //Retorna el ID del chiste creado
-        return res.status(201).json({ id: savedJoke._id });
+    //    return res.status(201).json({ id: savedJoke._id });
+        return res.status(201).json({
+            message: 'Chiste creado exitosamente.',
+            savedJoke 
+        });
     } catch (error) {
         return res.status(500).json({ message: 'Error al guardar el chiste en la base de datos', error: error.message });
     }
@@ -78,17 +79,26 @@ export const createJoke = async (req, res) => {
 
 //Funcion para actualizar un chiste
 export const updateJoke = async (req, res) => {
-    const { id } = req.params; // Obtiene el ID del chiste desde los parámetros de la URL
-    const { text, author, rating, category } = req.body; // Obtiene los nuevos datos del cuerpo de la solicitud
+    const { id } = req.params; //Obtiene el ID del chiste desde los parámetros de la URL
+    const { text, author, rating, category } = req.body; //Obtiene los nuevos datos del cuerpo de la solicitud
 
     try {
-        //Validar que el chiste exista
+        //Valida si el ID es un ObjectId válido
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({ error: 'ID no válido' });
+        }
+        
+        //Valida que el chiste exista
         const joke = await Joke.findById(id);
         if (!joke) {
             return res.status(404).json({ error: 'Chiste no encontrado por el ID dado.' });
         }
 
-        //Actualizar los campos solo si se proporcionan
+        if (req.body._id) {
+            return res.status(400).json({ error: 'No se puede modificar el campo "_id".' });
+        }
+
+        //Actualiza los campos solo si se proporcionan
         if (text !== undefined) {
             joke.text = text;
         }
@@ -112,7 +122,6 @@ export const updateJoke = async (req, res) => {
         //Guarda los cambios en la base de datos
         const updatedJoke = await joke.save();
 
-        //Retorna el chiste actualizado
         return res.status(200).json({
             message: 'Chiste actualizado exitosamente.',
             updatedJoke 
