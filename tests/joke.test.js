@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { app } from '../src//index.js'; // Asegúrate de que estás importando tu aplicación Express
+import { app } from '../src//index.js'; 
 import { Joke } from '../src/models/Joke.js';
 
 //Prueba Unitaria para el endpoint GET obtener chiste

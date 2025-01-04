@@ -10,6 +10,6 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
-    await mongoose.disconnect(); // Desconectar Mongoose
-    await mongoServer.stop(); // Detener el servidor en memoria
+    await mongoose.disconnect(); //Desconecta Mongoose
+    await mongoServer.stop(); //Detiene el servidor en memoria
 });
